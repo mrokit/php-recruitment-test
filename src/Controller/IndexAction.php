@@ -35,6 +35,14 @@ class IndexAction
         return [];
     }
 
+    protected function getAllUserPages()
+    {
+        if($this->user) {
+            return $this->websiteManager->getAllByUser($this->user);
+        } 
+        return [];
+    }
+
     public function execute()
     {
         require __DIR__ . '/../view/index.phtml';

@@ -37,4 +37,23 @@ class PageManager
         $statement->execute();
         return $this->database->lastInsertId();
     }
+
+    public function setPageTime($pageId, $time)
+    {
+        /** @var \PDOStatement $statement */
+        $statement = $this->database->prepare('UPDATE pages SET last_visit_time = :time WHERE page_id = :pageId');
+        $statement->bindParam(':time', $time, \PDO::PARAM_STR);
+        $statement->bindParam(':pageId', $pageId, \PDO::PARAM_INT);
+        $statement->execute();
+        return $this->database->lastInsertId();
+    }
+
+    public function getTime($pageId)
+    {
+        /** @var \PDOStatement $statement */
+        $statement = $this->database->prepare('SELECT last_visit_time WHERE page_id = :pageId');
+        $statement->bindParam(':pageId', $pageId, \PDO::PARAM_INT);
+        $statement->execute();
+        return $this->database->lastInsertId();
+    }
 }

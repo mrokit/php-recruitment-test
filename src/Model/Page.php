@@ -8,12 +8,12 @@ class Page
     public $page_id;
     public $url;
     public $website_id;
-    
+    public $time;
+
     public function __construct()
     {
         $this->website_id = intval($this->website_id);
         $this->page_id = intval($this->page_id);
-    
     }
 
     /**
@@ -39,6 +39,12 @@ class Page
     {
         return $this->website_id;
     }
-    
-    
+
+    /**
+     * @return string
+     */
+    public function getTime()
+    {
+        return $this->last_visit_time;
+    }
 }

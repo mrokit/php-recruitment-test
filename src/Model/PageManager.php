@@ -56,4 +56,22 @@ class PageManager
         $statement->execute();
         return $this->database->lastInsertId();
     }
+
+    public function setCounter($pageId)
+    {
+        /** @var \PDOStatement $statement */
+        $statement = $this->database->prepare('UPDATE pages SET visit_counter = visit_counter + 1 WHERE page_id = :pageId');
+        $statement->bindParam(':pageId', $pageId, \PDO::PARAM_INT);
+        $statement->execute();
+        return $this->database->lastInsertId();
+    }
+
+    public function getPagesStats($websiteIds, $direction)
+    {
+        $websiteIds = implode(',', array_map('intval', $websiteIds));
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare("SELECT url, website_id, visit_counter FROM pages WHERE website_id IN ($websiteIds) AND visit_counter > 0 ORDER BY visit_counter $direction LIMIT 1");
+        $query->execute();
+        return $query->fetchObject(Page::class);
+    }
 }

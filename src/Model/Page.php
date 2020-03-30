@@ -9,6 +9,7 @@ class Page
     public $url;
     public $website_id;
     public $time;
+    public $visit_counter;
 
     public function __construct()
     {
@@ -46,5 +47,13 @@ class Page
     public function getTime()
     {
         return $this->last_visit_time;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVisitCounter()
+    {
+        return $this->visit_counter;
     }
 }

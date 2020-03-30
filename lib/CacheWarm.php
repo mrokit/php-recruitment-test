@@ -64,7 +64,7 @@ class Old_Legacy_CacheWarmer_Warmer
     public function warm($url)
     {
         $ip = $this->resolver->getIp($this->hostname);
-        $url = $this->hostname.'/'.$url;
+        $url = $this->hostname . '/' . $url;
 
         $time = $this->getPageTime($url);
         $this->actor->act($this->hostname, $ip, $url, $time);

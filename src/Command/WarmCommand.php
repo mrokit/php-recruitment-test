@@ -37,6 +37,7 @@ class WarmCommand
             $actor = new \Old_Legacy_CacheWarmer_Actor();
             $actor->setActor(function ($hostname, $ip, $url, $time) use ($output) {
                 $this->pageManager->setPageTime($this->pageId, $time);
+                $this->pageManager->setCounter($this->pageId);
                 $output->writeln('Visited <info>http://' . $hostname . '/' . $url . '</info> via IP: <comment>' . $ip . '</comment>');
             });
             $warmer = new \Old_Legacy_CacheWarmer_Warmer();

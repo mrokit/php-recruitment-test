@@ -32,6 +32,9 @@ class VarnishesAction
         if (isset($_SESSION['login'])) {
             $this->user = $this->userManager->getByLogin($_SESSION['login']);
         }
+        else {
+            header('Location: /');
+        }
         $this->websiteManager = $websiteManager;
     }
 

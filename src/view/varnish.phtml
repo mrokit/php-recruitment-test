@@ -44,32 +44,35 @@
             <h1>Varnish Assignments</h1>
         </div>
 
-        <?php foreach ($this->getVarnishes() as $varnish): /** @var \Snowdog\DevTest\Model\Varnish $varnish */ ?>
-            <?php $websiteIds = $this->getAssignedWebsiteIds($varnish) ?>
-            <h2><?= $varnish->getIP() ?></h2>
+        <?php if ($this->getVarnishes()): ?>
+            <?php foreach ($this->getVarnishes() as $varnish): /** @var \Snowdog\DevTest\Model\Varnish $varnish */ ?>
+                <?php $websiteIds = $this->getAssignedWebsiteIds($varnish) ?>
+                <h2><?= $varnish->getIP() ?></h2>
 
-            <div class="padded">
-                <table class="table table-striped">
-                    <tr>
-                        <th>Associated</th>
-                        <th>Name</th>
-                        <th>Hostname</th>
-                    </tr>
-                    <?php foreach ($this->getWebsites() as $website): /** @var \Snowdog\DevTest\Model\Website $website */ ?>
+                <div class="padded">
+                    <table class="table table-striped">
                         <tr>
-                            <td><input type="checkbox" <?= in_array($website->getWebsiteId(), $websiteIds) ? 'checked="checked"' : '' ?>/></td>
-                            <td><?= $website->getName() ?></td>
-                            <td><?= $website->getHostname() ?></td>
+                            <th>Associated</th>
+                            <th>Name</th>
+                            <th>Hostname</th>
                         </tr>
-                    <?php endforeach ?>
-                </table>
-            </div>
+                        <?php foreach ($this->getWebsites() as $website): /** @var \Snowdog\DevTest\Model\Website $website */ ?>
+                            <tr>
+                                <td><input type="checkbox" class="associate-website-server" value="<?= $varnish->getVarnishId().'_'.$website->getWebsiteId() ?>"<?= in_array($website->getWebsiteId(), $websiteIds) ? 'checked="checked"' : '' ?>/></td>
+                                <td><?= $website->getName() ?></td>
+                                <td><?= $website->getHostname() ?></td>
+                            </tr>
+                        <?php endforeach ?>
+                    </table>
+                </div>
 
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        <?php endif ?>
     </div>
 
 </div><!-- /.container -->
 
-
+<script src="/js/jquery.min.js"></script>
+<script src="/js/associate-server.js"></script>
 </body>
 </html>

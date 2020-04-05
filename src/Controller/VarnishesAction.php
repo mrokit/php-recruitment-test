@@ -29,7 +29,7 @@ class VarnishesAction
     {
         $this->userManager = $userManager;
         $this->varnishManager = $varnishManager;
-        if(isset($_SESSION['login'])) {
+        if (isset($_SESSION['login'])) {
             $this->user = $this->userManager->getByLogin($_SESSION['login']);
         }
         $this->websiteManager = $websiteManager;
@@ -37,7 +37,7 @@ class VarnishesAction
 
     public function getVarnishes()
     {
-        if($this->user) {
+        if ($this->user) {
             return $this->varnishManager->getAllByUser($this->user);
         }
         return [];
@@ -45,7 +45,7 @@ class VarnishesAction
 
     public function getWebsites()
     {
-        if($this->user) {
+        if ($this->user) {
             return $this->websiteManager->getAllByUser($this->user);
         }
         return [];
@@ -55,15 +55,26 @@ class VarnishesAction
     {
         $websites = $this->varnishManager->getWebsites($varnish);
         $ids = [];
-        foreach($websites as $website) {
+        foreach ($websites as $website) {
             $ids[] = $website->getWebsiteId();
         }
         return $ids;
     }
 
-    public function execute() {
+    public function execute()
+    {
 
         include __DIR__ . '/../view/varnish.phtml';
     }
 
+    public function associateWebsite($data = null)
+    {
+        var_dump($data);die;
+    }
+
+    public function removeVarnishFromWebsite($data)
+    {
+        $websiteId = 22;
+        $this->varnishManager->unlink($websiteId);
+    }
 }

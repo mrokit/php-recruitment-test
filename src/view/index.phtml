@@ -30,23 +30,6 @@
     <div>
         <h1>Cache Warmer</h1>
         <?php if ($this->user): ?>
-            <div class="padded">
-                <table class="table table-striped">
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Hostname</th>
-                    </tr>
-                    <?php foreach ($this->getWebsites() as $website): /** @var \Snowdog\DevTest\Model\Website $website */ ?>
-                        <tr>
-                            <td><?= $website->getWebsiteId() ?></td>
-                            <td><a href="/website/<?= $website->getWebsiteId() ?>"><?= $website->getName() ?></a></td>
-                            <td><?= $website->getHostname() ?></td>
-                        </tr>
-                    <?php endforeach ?>
-                </table>
-            </div>
-
             <p class="bg-success">Hello <?= $this->user->getDisplayName() ?>!</p>
             <div class="padded">
                 <form class="form-inline" method="post" action="/website">
@@ -62,10 +45,6 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Add Website</button>
                 </form>
-            </div>
-
-            <p class="bg-success">Hello <?= $this->user->getDisplayName() ?>!</p>
-            <div class="padded">
                 <?php if ($this->getMostVisitedPage()): ?>
                     <p>Most Visited Page: <span><?= $this->getMostVisitedPage() ?></span></p>
                 <?php endif ?>

@@ -18,12 +18,20 @@ use Snowdog\DevTest\Controller\WebsiteAction;
 use Snowdog\DevTest\Menu\RegisterMenu;
 use Snowdog\DevTest\Controller\LoginAction;
 use Snowdog\DevTest\Controller\RegisterAction;
+use Snowdog\DevTest\Controller\VarnishesAction;
+use Snowdog\DevTest\Controller\CreateVarnishAction;
+use Snowdog\DevTest\Menu\VarnishMenu;
 
 Menu::register(RegisterMenu::class, 250);
 CommandRepository::registerCommand('migrate_db', MigrateCommand::class);
 Menu::register(WebsitesMenu::class, 10);
+Menu::register(VarnishMenu::class, 20);
 RouteRepository::registerRoute('POST', '/website', CreateWebsiteAction::class, 'execute');
 RouteRepository::registerRoute('GET', '/login', LoginFormAction::class, 'execute');
+RouteRepository::registerRoute('GET', '/varnish', VarnishesAction::class, 'execute');
+RouteRepository::registerRoute('PUT', '/varnish', VarnishesAction::class, 'associateWebsite');
+RouteRepository::registerRoute('DELETE', '/varnish', VarnishesAction::class, 'removeVarnishFromWebsite');
+RouteRepository::registerRoute('POST', '/varnish', CreateVarnishAction::class, 'execute');
 RouteRepository::registerRoute('POST', '/register', RegisterAction::class, 'execute');
 RouteRepository::registerRoute('GET', '/', IndexAction::class, 'execute');
 Migrations::registerComponentMigration('Snowdog\\DevTest', 2);
@@ -34,7 +42,5 @@ RouteRepository::registerRoute('GET', '/register', RegisterFormAction::class, 'e
 Menu::register(LoginMenu::class, 200);
 RouteRepository::registerRoute('POST', '/login', LoginAction::class, 'execute');
 RouteRepository::registerRoute('GET', '/website/{id:\d+}', WebsiteAction::class, 'execute');
-Menu::register(RegisterMenu::class, 250);
-Menu::register(WebsitesMenu::class, 10);
 
-Migrations::registerComponentMigration('Snowdog\\DevTest', 4);
+Migrations::registerComponentMigration('Snowdog\\DevTest', 5);

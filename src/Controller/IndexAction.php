@@ -34,8 +34,12 @@ class IndexAction
     {
         $this->websiteManager = $websiteManager;
         $this->pageManager = $pageManager;
+        $this->userManager = $userManager;
         if (isset($_SESSION['login'])) {
             $this->user = $userManager->getByLogin($_SESSION['login']);
+        }
+        else {
+            header('Location: /login');
         }
     }
 
@@ -90,5 +94,10 @@ class IndexAction
         }
 
         return '';
+    }
+
+    protected function getTotalUserPages()
+    {
+        return $this->userManager->getWebsitesByUser($this->user->getUserId());
     }
 }

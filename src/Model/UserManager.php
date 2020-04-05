@@ -53,4 +53,13 @@ class UserManager
     {
         return hash('sha512', $password . $salt);
     }
+
+    public function getWebsitesByUser($userId)
+    {
+        /** @var \PDOStatement $query */
+        $query = $this->database->prepare('SELECT COUNT(website_id) FROM websites WHERE user_id = :userId');
+        $query->bindParam(':userId', $userId, \PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchColumn();
+    }
 }

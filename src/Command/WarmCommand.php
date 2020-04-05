@@ -16,6 +16,10 @@ class WarmCommand
      * @var PageManager
      */
     private $pageManager;
+    /**
+     * @var PageId
+     */
+    private $pageId;
 
     public function __construct(WebsiteManager $websiteManager, PageManager $pageManager)
     {
@@ -31,7 +35,9 @@ class WarmCommand
 
             $resolver = new \Old_Legacy_CacheWarmer_Resolver_Method();
             $actor = new \Old_Legacy_CacheWarmer_Actor();
-            $actor->setActor(function ($hostname, $ip, $url) use ($output) {
+            $actor->setActor(function ($hostname, $ip, $url, $time) use ($output) {
+                $this->pageManager->setPageTime($this->pageId, $time);
+                $this->pageManager->setCounter($this->pageId);
                 $output->writeln('Visited <info>http://' . $hostname . '/' . $url . '</info> via IP: <comment>' . $ip . '</comment>');
             });
             $warmer = new \Old_Legacy_CacheWarmer_Warmer();
@@ -40,6 +46,7 @@ class WarmCommand
             $warmer->setActor($actor);
 
             foreach ($pages as $page) {
+                $this->pageId = $page->getPageId();
                 $warmer->warm($page->getUrl());
             }
         } else {

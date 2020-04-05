@@ -47,6 +47,7 @@
                 </table>
             </div>
 
+            <p class="bg-success">Hello <?= $this->user->getDisplayName() ?>!</p>
             <div class="padded">
                 <form class="form-inline" method="post" action="/website">
                     <div class="form-group">
@@ -64,6 +65,31 @@
             </div>
 
             <p class="bg-success">Hello <?= $this->user->getDisplayName() ?>!</p>
+            <div class="padded">
+                <?php if ($this->getMostVisitedPage()): ?>
+                    <p>Most Visited Page: <span><?= $this->getMostVisitedPage() ?></span></p>
+                <?php endif ?>
+                <?php if ($this->getLeastVisitedPage()): ?>
+                    <p>Least Visited Page: <span><?= $this->getLeastVisitedPage() ?></span></p>
+                <?php endif ?>
+                <?php if($this->getTotalUserPages()): ?>
+                    <p>Total User Websites: <span><?= $this->getTotalUserPages(); ?></span></p>
+                <?php endif ?>
+                <table class="table table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Hostname</th>
+                    </tr>
+                    <?php foreach ($this->getWebsites() as $website): /** @var \Snowdog\DevTest\Model\Website $website */ ?>
+                        <tr>
+                            <td><?= $website->getWebsiteId() ?></td>
+                            <td><a href="/website/<?= $website->getWebsiteId() ?>"><?= $website->getName() ?></a></td>
+                            <td><?= $website->getHostname() ?></td>
+                        </tr>
+                    <?php endforeach ?>
+                </table>
+            </div>
         <?php endif ?>
     </div>
 

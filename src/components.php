@@ -34,3 +34,7 @@ RouteRepository::registerRoute('GET', '/register', RegisterFormAction::class, 'e
 Menu::register(LoginMenu::class, 200);
 RouteRepository::registerRoute('POST', '/login', LoginAction::class, 'execute');
 RouteRepository::registerRoute('GET', '/website/{id:\d+}', WebsiteAction::class, 'execute');
+Menu::register(RegisterMenu::class, 250);
+Menu::register(WebsitesMenu::class, 10);
+
+Migrations::registerComponentMigration('Snowdog\\DevTest', 4);

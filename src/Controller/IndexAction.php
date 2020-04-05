@@ -87,10 +87,13 @@ class IndexAction
             }
 
             $page = $this->pageManager->getPagesStats($websiteIds, $this->direction);
-            $websiteId = $page->getWebsiteId();
-            $websiteName = $this->websiteManager->getById($websiteId)->getHostname();
-
-            return $websiteName . '/' . $page->getUrl() . ' - visited ' . $page->getVisitCounter() . ' times';
+            if ($page) {
+                $websiteId = $page->getWebsiteId();
+                $websiteName = $this->websiteManager->getById($websiteId)->getHostname();
+    
+                return $websiteName . '/' . $page->getUrl() . ' - visited ' . $page->getVisitCounter() . ' times';
+            }
+            return '';
         }
 
         return '';

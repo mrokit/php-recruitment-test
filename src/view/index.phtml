@@ -48,9 +48,15 @@
             </div>
 
             <div class="padded">
-                <p>Most Visited Page: <?= $this->getMostVisitedPage() ?></p>
-                <p>Least Visited Page: <?= $this->getLeastVisitedPage() ?></p>
-                <p>Total User Websites: <?= $this->getTotalUserPages(); ?></p>
+                <?php if ($this->getMostVisitedPage()): ?>
+                    <p>Most Visited Page: <span><?= $this->getMostVisitedPage() ?></span></p>
+                <?php endif ?>
+                <?php if ($this->getLeastVisitedPage()): ?>
+                    <p>Least Visited Page: <span><?= $this->getLeastVisitedPage() ?></span></p>
+                <?php endif ?>
+                <?php if($this->getTotalUserPages()): ?>
+                    <p>Total User Websites: <span><?= $this->getTotalUserPages(); ?></span></p>
+                <?php endif ?>
                 <table class="table table-striped">
                     <tr>
                         <th>#</th>
